@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
+
+		<title>Radar Chart</title>
+
+		<!-- Google fonts -->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Acme' rel='stylesheet'>
+
+
+		<!-- D3.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+
+
+		<style>
+			body {
+				font-family: 'Open Sans', sans-serif;
+				font-size: 11px;
+				font-weight: 300;
+				fill: #242424;
+				text-align: center;
+				text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+				cursor: default;
+			}
+
+		</style>
+
+	</head>
+	<body>
+<h1> Consumer Expenditure Survey for the Northeast and South U.S. 2016-17 </h1>
+		<div class="radarChart"></div>
+        <script src="radarChart.js"></script>
+
+
+		<script>
+
+      /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+
+			//////////////////////////////////////////////////////////////
+			//////////////////////// Set-Up //////////////////////////////
+			//////////////////////////////////////////////////////////////
+			var margin = {top: 100, right: 100, bottom: 100, left: 100},
+				width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+
+			//////////////////////////////////////////////////////////////
+			////////////////////////// DATA //////////////////////////////
+			//////////////////////////////////////////////////////////////
+
+            var data = [
+					  [//Northeast
+						{axis:"Food",value:7611},
+            {axis:"Housing",value:22063},
+						{axis:"Transportation",value:8494},
+						{axis:"Healthcare",value:4889},
+						{axis:"Education",value:2144}
+						  ],
+
+
+            [//South
+            {axis:"Food",value:6921},
+            {axis:"Housing",value:17383},
+						{axis:"Transportation",value:9323},
+						{axis:"Healthcare",value:4473},
+						{axis:"Education",value:1518}]
+
+					];
+			//////////////////////////////////////////////////////////////
+			//////////////////// DRAW THE CHART//////////////////////////
+			//////////////////////////////////////////////////////////////
+			var color = d3.scale.ordinal()
+            .range(["#CC333F","#00A0B0"]);
+
+			var radarChartOptions = {
+			  w: width,
+			  h: height,
+			  margin: margin,
+			  maxValue:23000,
+			  levels:5,
+			  roundStrokes: true,
+			  color: color
+			};
+
+			//CALL FUNCTION FOR RADAR CHART//
+			RadarChart(".radarChart", data, radarChartOptions);
+			var title = L.control({position: 'topright'}); // position of the title
+
+			title.onAdd = function (map) {
+			    this._div = L.DomUtil.create('div', 'title'); // create a div with a class "title"
+			    this._div.innerHTML = "<h3>Consumer Expenditure Survey for the Northeast and South U.S</h3>";  // Title text, may use html to customize
+			    return this._div;
+			};
+
+			title.addTo(map);
+
+		</script>
+	</body>
+</html>
